@@ -1,0 +1,193 @@
+#taskbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    z-index: 3;
+    display: flex;
+    background: #242424;
+    color: #DDDDDD;
+    user-select: none;
+}
+
+#taskbar > #tb-apps {
+    display: flex;
+    flex-grow: 1;
+}
+
+#taskbar > #tb-apps > .item {
+    padding: 7px 9px 9px 7px;
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+    box-sizing: border-box;
+}
+
+#taskbar > #tb-apps > .item.active {
+    padding-bottom: 7px;
+    border-bottom: 2px #3498db solid;
+}
+
+#taskbar > #tb-apps > .item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+}
+
+#taskbar > #tb-apps > .item > i.icon {
+    font-size: 24px;
+}
+
+#taskbar > #tb-apps > .item > img.icon {
+    width: 24px;
+    height: 24px;
+}
+
+#taskbar > #tb-apps > .item > .label {
+    font-size: 12pt;
+    font-family: "Roboto Condensed";
+    margin-left: 8px;
+}
+
+#taskbar > #tb-menu {
+    display: flex;
+    align-items: stretch;
+    margin-right: 4px;
+}
+
+#taskbar > #tb-menu > #taskbar-menu {
+    color: #DDDDDD;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+}
+
+#taskbar > #tb-menu > #taskbar-menu > .icon {
+    color: #DDDDDD;
+    font-size: 24px;
+}
+
+#taskbar > #tb-menu:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#taskbar > #tb-menu.active {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+#taskbar > #tb-info {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 8px;
+}
+
+#taskbar > #tb-info > #tb-time {
+    font-family: "Roboto";
+    font-size: 10pt;
+}
+
+#taskbar > #tb-info > #tb-date {
+    font-family: "Roboto";
+    font-size: 10pt;
+}
+
+#program-menu {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    width: 384px;
+    height: 512px;
+    background: #242424;
+    color: #EEEEEE;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    user-select: none;
+    opacity: 1;
+
+    transition: bottom 0.1s, opacity 0.1s;
+}
+
+#program-menu.active {
+    transition: bottom 0.1s, opacity 0.1 0.05s;
+}
+
+#program-menu > .user-info {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+}
+
+#program-menu > .user-info > .user-pic {
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    margin-right: 16px;
+}
+
+#program-menu > .user-info > .user-name {
+    font-family: "Roboto Light";
+    font-size: 18pt;
+}
+
+#program-menu > .program-list {
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
+#program-menu > .program-list > .program {
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+}
+
+#program-menu > .program-list > .program:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#program-menu > .program-list > .program > i.program-icon {
+    font-size: 24px;
+    margin-right: 4px;
+}
+
+#program-menu > .program-list > .program > img.program-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 4px;
+}
+
+#program-menu > .program-list > .program > .program-title {
+    font-size: 14pt;
+    font-family: "Roboto Condensed";
+    font-weight: 300;
+}
+
+#program-menu > .menu-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+#program-menu > .menu-buttons > .button {
+    padding: 8px;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#program-menu > .menu-buttons > .button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#program-menu > .menu-buttons > .button > i.button-icon {
+    font-size: 24px;
+    padding: 8px;
+}
+
+#program-menu > .menu-buttons > .button > img.button-icon {
+    width: 24px;
+    height: 24px;
+    padding: 8px;
+}
