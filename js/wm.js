@@ -57,6 +57,19 @@ wm.addWindow = function(options) {
     let mainWindowContent = document.createElement("div");
     mainWindowContent.classList.add("window-content");
 
+    let handleContainer = document.createElement("div");
+    handleContainer.classList.add("resizers");
+
+    let handles = ["nw", "n", "ne", "w", "e", "sw", "s", "se"];
+
+    for (var i = 0; i < handles.length; i++) {
+        let handle = document.createElement("div");
+        handle.classList.add("handle");
+        handle.classList.add(handles[i]);
+
+        handleContainer.appendChild(handle);
+    }
+
     titleBar.appendChild(titleBarIcon);
     titleBar.appendChild(titleBarTitle);
     titleBar.appendChild(minimizeBtn);
@@ -64,6 +77,7 @@ wm.addWindow = function(options) {
 
     mainWindow.appendChild(titleBar);
     mainWindow.appendChild(mainWindowContent);
+    mainWindow.appendChild(handleContainer);
 
     wm.element.appendChild(mainWindow);
 
@@ -77,11 +91,164 @@ wm.addWindow = function(options) {
             wm.selected.startY = e.clientY;
             wm.selected.offsetX = e.clientX - parseInt(mainWindow.style.left);
             wm.selected.offsetY = e.clientY - parseInt(mainWindow.style.top);
+            wm.selected.type = "move";
 
             cover.style.zIndex = 1000;
 
             document.body.style.cursor = "move";
         }
+    });
+
+    handleContainer.children[0].addEventListener("mousedown", (e) => {
+        let cover = document.getElementById("move-cover");
+
+        wm.selected.element = mainWindow;
+        wm.selected.active = true;
+        wm.selected.startX = e.clientX;
+        wm.selected.startY = e.clientY;
+        wm.selected.offsetX = e.clientX - parseInt(mainWindow.style.left);
+        wm.selected.offsetY = e.clientY - parseInt(mainWindow.style.top);
+        wm.selected.height = parseInt(mainWindow.style.height);
+        wm.selected.width = parseInt(mainWindow.style.width);
+        wm.selected.type = "resize";
+        wm.selected.resize = "nw";
+
+        cover.style.zIndex = 1000;
+
+        document.body.style.cursor = "nw-resize";
+    });
+
+    handleContainer.children[1].addEventListener("mousedown", (e) => {
+        let cover = document.getElementById("move-cover");
+
+        wm.selected.element = mainWindow;
+        wm.selected.active = true;
+        wm.selected.startX = e.clientX;
+        wm.selected.startY = e.clientY;
+        wm.selected.offsetX = e.clientX - parseInt(mainWindow.style.left);
+        wm.selected.offsetY = e.clientY - parseInt(mainWindow.style.top);
+        wm.selected.height = parseInt(mainWindow.style.height);
+        wm.selected.width = parseInt(mainWindow.style.width);
+        wm.selected.type = "resize";
+        wm.selected.resize = "n";
+
+        cover.style.zIndex = 1000;
+
+        document.body.style.cursor = "n-resize";
+    });
+
+    handleContainer.children[2].addEventListener("mousedown", (e) => {
+        let cover = document.getElementById("move-cover");
+
+        wm.selected.element = mainWindow;
+        wm.selected.active = true;
+        wm.selected.startX = e.clientX;
+        wm.selected.startY = e.clientY;
+        wm.selected.offsetX = e.clientX - parseInt(mainWindow.style.left);
+        wm.selected.offsetY = e.clientY - parseInt(mainWindow.style.top);
+        wm.selected.height = parseInt(mainWindow.style.height);
+        wm.selected.width = parseInt(mainWindow.style.width);
+        wm.selected.type = "resize";
+        wm.selected.resize = "ne";
+
+        cover.style.zIndex = 1000;
+
+        document.body.style.cursor = "ne-resize";
+    });
+
+    handleContainer.children[3].addEventListener("mousedown", (e) => {
+        let cover = document.getElementById("move-cover");
+
+        wm.selected.element = mainWindow;
+        wm.selected.active = true;
+        wm.selected.startX = e.clientX;
+        wm.selected.startY = e.clientY;
+        wm.selected.offsetX = e.clientX - parseInt(mainWindow.style.left);
+        wm.selected.offsetY = e.clientY - parseInt(mainWindow.style.top);
+        wm.selected.height = parseInt(mainWindow.style.height);
+        wm.selected.width = parseInt(mainWindow.style.width);
+        wm.selected.type = "resize";
+        wm.selected.resize = "w";
+
+        cover.style.zIndex = 1000;
+
+        document.body.style.cursor = "w-resize";
+    });
+
+    handleContainer.children[4].addEventListener("mousedown", (e) => {
+        let cover = document.getElementById("move-cover");
+
+        wm.selected.element = mainWindow;
+        wm.selected.active = true;
+        wm.selected.startX = e.clientX;
+        wm.selected.startY = e.clientY;
+        wm.selected.offsetX = e.clientX - parseInt(mainWindow.style.left);
+        wm.selected.offsetY = e.clientY - parseInt(mainWindow.style.top);
+        wm.selected.height = parseInt(mainWindow.style.height);
+        wm.selected.width = parseInt(mainWindow.style.width);
+        wm.selected.type = "resize";
+        wm.selected.resize = "e";
+
+        cover.style.zIndex = 1000;
+
+        document.body.style.cursor = "e-resize";
+    });
+
+    handleContainer.children[5].addEventListener("mousedown", (e) => {
+        let cover = document.getElementById("move-cover");
+
+        wm.selected.element = mainWindow;
+        wm.selected.active = true;
+        wm.selected.startX = e.clientX;
+        wm.selected.startY = e.clientY;
+        wm.selected.offsetX = e.clientX - parseInt(mainWindow.style.left);
+        wm.selected.offsetY = e.clientY - parseInt(mainWindow.style.top);
+        wm.selected.height = parseInt(mainWindow.style.height);
+        wm.selected.width = parseInt(mainWindow.style.width);
+        wm.selected.type = "resize";
+        wm.selected.resize = "sw";
+
+        cover.style.zIndex = 1000;
+
+        document.body.style.cursor = "sw-resize";
+    });
+
+    handleContainer.children[6].addEventListener("mousedown", (e) => {
+        let cover = document.getElementById("move-cover");
+
+        wm.selected.element = mainWindow;
+        wm.selected.active = true;
+        wm.selected.startX = e.clientX;
+        wm.selected.startY = e.clientY;
+        wm.selected.offsetX = e.clientX - parseInt(mainWindow.style.left);
+        wm.selected.offsetY = e.clientY - parseInt(mainWindow.style.top);
+        wm.selected.height = parseInt(mainWindow.style.height);
+        wm.selected.width = parseInt(mainWindow.style.width);
+        wm.selected.type = "resize";
+        wm.selected.resize = "s";
+
+        cover.style.zIndex = 1000;
+
+        document.body.style.cursor = "s-resize";
+    });
+
+    handleContainer.children[7].addEventListener("mousedown", (e) => {
+        let cover = document.getElementById("move-cover");
+
+        wm.selected.element = mainWindow;
+        wm.selected.active = true;
+        wm.selected.startX = e.clientX;
+        wm.selected.startY = e.clientY;
+        wm.selected.offsetX = e.clientX - parseInt(mainWindow.style.left);
+        wm.selected.offsetY = e.clientY - parseInt(mainWindow.style.top);
+        wm.selected.height = parseInt(mainWindow.style.height);
+        wm.selected.width = parseInt(mainWindow.style.width);
+        wm.selected.type = "resize";
+        wm.selected.resize = "se";
+
+        cover.style.zIndex = 1000;
+
+        document.body.style.cursor = "se-resize";
     });
 
     mainWindow.addEventListener("mousedown", (e) => {
@@ -95,7 +262,7 @@ wm.addWindow = function(options) {
     let menuBtn = taskbar.addItem(opts);
     menuBtn.addEventListener("click", (e) => {
         if (mainWindow.style.display == "none") {
-            mainWindow.style.display = "block";
+            mainWindow.style.display = "";
             menuBtn.classList.add("active");
 
             wm.windows.push(wm.windows.splice(wm.windows.indexOf(mainWindow), 1)[0]);
@@ -133,9 +300,25 @@ wm.addWindow = function(options) {
 document.body.addEventListener("mousemove", (e) => {
     if (wm.selected.active) {
         let element = wm.selected.element;
+        if (wm.selected.type == "move") {
+            element.style.top = ((e.clientY - wm.selected.startY) - wm.selected.offsetY + wm.selected.startY) + "px";
+            element.style.left = ((e.clientX - wm.selected.startX) - wm.selected.offsetX + wm.selected.startX) + "px";
+        } else if (wm.selected.type == "resize") {
+            if (wm.selected.resize.indexOf("n") > -1) {
+                element.style.top = ((e.clientY - wm.selected.startY) - wm.selected.offsetY + wm.selected.startY) + "px";
+                element.style.height = (wm.selected.height - (e.clientY - wm.selected.startY)) + "px";
+            } else if (wm.selected.resize.indexOf("s") > -1) {
+                element.style.height = ((e.clientY - wm.selected.startY) + wm.selected.height) + "px";
+            }
 
-        element.style.top = ((e.clientY - wm.selected.startY) - wm.selected.offsetY + wm.selected.startY) + "px";
-        element.style.left = ((e.clientX - wm.selected.startX) - wm.selected.offsetX + wm.selected.startX) + "px";
+            if (wm.selected.resize.indexOf("w") > -1) {
+                element.style.left = ((e.clientX - wm.selected.startX) - wm.selected.offsetX + wm.selected.startX) + "px";
+                element.style.width = (wm.selected.width - (e.clientX - wm.selected.startX)) + "px";
+
+            } else if (wm.selected.resize.indexOf("e") > -1) {
+                element.style.width = ((e.clientX - wm.selected.startX) + wm.selected.width) + "px";
+            }
+        }
     }
 });
 
@@ -145,4 +328,8 @@ document.body.addEventListener("mouseup", (e) => {
         document.body.style.cursor = "initial";
         document.getElementById("move-cover").style.zIndex = -1000;
     }
+});
+
+document.body.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
 });

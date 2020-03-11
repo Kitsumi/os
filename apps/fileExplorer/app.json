@@ -1,0 +1,11 @@
+{
+    "main": "manager.html",
+    "scripts": [
+        "manager.js"
+    ],
+    "icon": {
+        "type": "font",
+        "src": "file-list-fill"
+    },
+    "title": "File Manager"
+}

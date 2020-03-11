@@ -23,6 +23,7 @@
     display: flex;
     align-items: center;
     user-select: none;
+    z-index: 1;
 }
 
 #windows > .window > .title-bar > i.icon {
@@ -64,6 +65,80 @@
 
 #windows > .window > .title-bar > .window-btn.ri-close-line:active {
     background: #c0392b;
+}
+
+#windows > .window > .window-content {
+    background: #EEE;
+    height: calc(100% - 29px);
+    z-index: 1;
+    overflow: hidden;
+}
+
+#windows > .window > .resizers {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    width: calc(100% + 16px);
+    height: calc(100% + 16px);
+    z-index: 0;
+}
+
+#windows > .window > .resizers > .handle {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+}
+
+#windows > .window > .resizers > .handle.nw {
+    top: 0;
+    left: 0;
+    cursor: nw-resize;
+}
+
+#windows > .window > .resizers > .handle.n {
+    top: 0;
+    left: 16px;
+    width: calc(100% - 32px);
+    cursor: n-resize;
+}
+
+#windows > .window > .resizers > .handle.ne {
+    top: 0;
+    right: 0;
+    cursor: ne-resize;
+}
+
+#windows > .window > .resizers > .handle.w {
+    top: 16px;
+    left: 0;
+    height: calc(100% - 32px);
+    cursor: w-resize;
+}
+
+#windows > .window > .resizers > .handle.e {
+    top: 16px;
+    right: 0;
+    height: calc(100% - 32px);
+    cursor: e-resize;
+}
+
+#windows > .window > .resizers > .handle.sw {
+    left: 0;
+    bottom: 0;
+    cursor: sw-resize;
+}
+
+#windows > .window > .resizers > .handle.s {
+    bottom: 0;
+    left: 16px;
+    width: calc(100% - 32px);
+    cursor: s-resize;
+}
+
+#windows > .window > .resizers > .handle.se {
+    bottom: 0;
+    right: 0;
+    cursor: se-resize;
 }
 
 #move-cover {

@@ -1,53 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>WM.js</title>
-        
-        <link rel="stylesheet" href="res/remixicons/remixicon.css" />
-        <link rel="stylesheet" href="css/main.css" />
-        <link rel="stylesheet" href="css/taskbar.css" />
-        <link rel="stylesheet" href="css/windows.css" />
-    </head>
 
-    <body>
-        <div id="move-cover"></div>
+<head>
+    <title>WM.js</title>
 
-        <div id="taskbar">
-            <div id="tb-menu">
-                <span id="taskbar-menu"><i class="icon ri-apps-fill"></i></span>
-            </div>
-            <div id="tb-apps"></div>
-            <div id="tb-info">
-                <span id="tb-time">12:00 AM</span>
-                <span id="tb-date">1/1/2020</span>
-            </div>
-            <div id="tb-notif"></div>
+    <link rel="stylesheet" href="res/remixicons/remixicon.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/taskbar.css" />
+    <link rel="stylesheet" href="css/windows.css" />
+</head>
+
+<body>
+    <div id="move-cover"></div>
+
+    <div id="taskbar">
+        <div id="tb-menu">
+            <span id="taskbar-menu"><i class="icon ri-apps-fill"></i></span>
         </div>
+        <div id="tb-apps"></div>
+        <div id="tb-info">
+            <span id="tb-time">12:00 AM</span>
+            <span id="tb-date">1/1/2020</span>
+        </div>
+        <div id="tb-notif"></div>
+    </div>
 
-        <div id="program-menu" data-enabled="false" style="opacity: 0; bottom: -512px">
-            <div class="user-info">
-                <img class="user-pic" src="res/default-profile.svg" />
-                <span class="user-name">Name</span>
+    <div id="program-menu" data-enabled="false" style="opacity: 0; bottom: -512px">
+        <div class="user-info">
+            <img class="user-pic" src="res/default-profile.svg" />
+            <span class="user-name">Name</span>
+        </div>
+        <div class="program-list">
+        </div>
+        <div class="menu-buttons">
+            <div class="button">
+                <i class="button-icon ri-lock-fill"></i>
             </div>
-            <div class="program-list">
+            <div class="button">
+                <i class="button-icon ri-logout-box-fill"></i>
             </div>
-            <div class="menu-buttons">
-                <div class="button">
-                    <i class="button-icon ri-lock-fill"></i>
-                </div>
-                <div class="button">
-                    <i class="button-icon ri-logout-box-fill"></i>
-                </div>
-                <div class="button">
-                    <i class="button-icon ri-settings-fill"></i>
-                </div>
+            <div class="button">
+                <i class="button-icon ri-settings-fill"></i>
             </div>
         </div>
+    </div>
 
-        <div id="windows"></div>
+    <div id="windows">
+    </div>
 
-        <script src="js/filesystem.js"></script>
-        <script src="js/taskbar.js"></script>
-        <script src="js/wm.js"></script>
-    </body>
+    <script src="js/filesystem.js"></script>
+    <script src="js/taskbar.js"></script>
+    <script src="js/wm.js"></script>
+    <script src="js/appmanager.js"></script>
+</body>
+
 </html>
