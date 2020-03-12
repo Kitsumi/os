@@ -3,39 +3,70 @@
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: stretch;
 }
 
-#fileexplorer-main > #sidebar {
+#fileexplorer-main > #menu-bar {
+    background: #242424;
+    display: flex;
+    align-items: center;
+    color: #EEEEEE;
+}
+
+#fileexplorer-main > #menu-bar > .button {
+    padding: 8px;
+    margin-left: 4px;
+    color: #777;
+}
+
+#fileexplorer-main > #menu-bar > .button.active {
+    color: #EEEEEE;
+}
+
+#fileexplorer-main > #menu-bar > .button.active:hover {
+    background: rgba(238, 238, 238, 0.2);
+}
+
+#fileexplorer-main > #row {
+    display: flex;
+    flex-grow: 1;
+}
+
+#fileexplorer-main > #row > #sidebar {
     background: #242424;
     color: #EEEEEE;
     overflow-y: scroll;
     flex-shrink: 0;
 }
 
-#fileexplorer-main > #sidebar > .shortcut {
+#fileexplorer-main > #row > #sidebar > .shortcut {
     display: flex;
     padding: 8px;
     align-items: center;
 }
 
-#fileexplorer-main > #sidebar > .shortcut > .icon {
+#fileexplorer-main > #row > #sidebar > .shortcut > .icon {
     padding-right: 4px;
     font-size: 18px;
+    user-select: none;
+    cursor: default;
 }
 
-#fileexplorer-main > #sidebar > .shortcut > .title {
+#fileexplorer-main > #row > #sidebar > .shortcut > .title {
     font-family: "Roboto";
     font-size: 11pt;
+    user-select: none;
+    cursor: default;
 }
 
-#fileexplorer-main > #explorer {
+#fileexplorer-main > #row > #explorer {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
 
-#fileexplorer-main > #explorer > #files {
+#fileexplorer-main > #row > #explorer > #files {
     flex-grow: 1;
     display: flex;
     flex-wrap: wrap;
@@ -43,7 +74,7 @@
     align-content: flex-start;
 }
 
-#fileexplorer-main > #explorer > #files > .file {
+#fileexplorer-main > #row > #explorer > #files > .file {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,20 +85,22 @@
     justify-content: space-around;
 }
 
-#fileexplorer-main > #explorer > #files > .file.selected {
+#fileexplorer-main > #row > #explorer > #files > .file.selected {
     background: rgba(36, 36, 36, 0.25);
 }
 
-#fileexplorer-main > #explorer > #files > .file:hover {
+#fileexplorer-main > #row > #explorer > #files > .file:hover {
     background: rgba(36, 36, 36, 0.2);
 }
 
-#fileexplorer-main > #explorer > #files > .file > .icon {
+#fileexplorer-main > #row > #explorer > #files > .file > .icon {
     font-size: 64px;
     color: #242424;
+    user-select: none;
+    cursor: default;
 }
 
-#fileexplorer-main > #explorer > #files > .file > .title {
+#fileexplorer-main > #row > #explorer > #files > .file > .title {
     font-family: "Roboto";
     color: #242424;
     font-size: 11pt;
@@ -76,78 +109,72 @@
     text-overflow: ellipsis;
     text-align: center;
     max-width: 96px;
+    user-select: none;
+    cursor: default;
+}
+
+#fileexplorer-main > #menu-bar > #breadcrumbs {
+    background: #EEEEEE;
+    color: #242424;
+    display: flex;
+    flex-grow: 1;
+    margin: 8px;
+    align-items: stretch;
+    font-family: "Roboto Condensed";
+    height: 32px;
+}
+
+#fileexplorer-main > #menu-bar > #breadcrumbs > .crumb {
+    padding: 4px 0px;
+    padding-left: 4px;
+    display: flex;
+    align-items: end;
+    user-select: none;
+    cursor: default;
+}
+
+#fileexplorer-main > #menu-bar > #breadcrumbs > .crumb:hover {
+    background: rgba(36, 36, 36, 0.25);
+}
+
+#fileexplorer-main > #menu-bar > #breadcrumbs > .crumb::after {
+    font-family: "remixicon";
+    content: "\EA52";
+    font-size: 24px;
+    margin-right: -4px;
+}
+
+#fileexplorer-main > #menu-bar > #breadcrumbs > .crumb:last-child {
+    padding-right: 4px;
+}
+
+#fileexplorer-main > #menu-bar > #breadcrumbs > .crumb:last-child::after {
+    margin-right: 0;
+    content: '';
 }
 </style>
 
 <div id="fileexplorer-main">
-    <div id="sidebar">
-        <div class="shortcut">
-            <i class="icon ri-hard-drive-2-fill"></i>
-            <span class="title">Main Drive</span>
-        </div>
+    <div id="menu-bar">
+        <i id="back" class="button ri-arrow-left-line"></i>
+        <i id="forward" class="button ri-arrow-right-line"></i>
+        <i id="up" class="button ri-arrow-up-line"></i>
+        <span id="breadcrumbs">
+            <span class="crumb">Root</span>
+            <span class="crumb">Users</span>
+            <span class="crumb">Default</span>
+            <span class="crumb">Documents</span>
+        </span>
     </div>
-    <div id="explorer">
-        <div id="menu-bar"></div>
-        <div id="files">
-            <div class="file">
-                <i class="icon ri-folder-fill"></i>
-                <span class="title">Directory</span>
+    <div id="row">
+        <div id="sidebar">
+            <div class="shortcut">
+                <i class="icon ri-hard-drive-2-fill"></i>
+                <span class="title">Main Drive</span>
             </div>
-            <div class="file">
-                <i class="icon ri-folder-fill"></i>
-                <span class="title">Directory</span>
-            </div>
-            <div class="file">
-                <i class="icon ri-folder-fill"></i>
-                <span class="title">Directory</span>
-            </div>
-            <div class="file">
-                <i class="icon ri-folder-fill"></i>
-                <span class="title">Directory</span>
-            </div>
-            <div class="file">
-                <i class="icon ri-folder-fill"></i>
-                <span class="title">Directory</span>
-            </div>
-            <div class="file">
-                <i class="icon ri-file-fill"></i>
-                <span class="title">File</span>
-            </div>
-            <div class="file">
-                <i class="icon ri-file-fill"></i>
-                <span class="title">File</span>
-            </div>
-            <div class="file">
-                <i class="icon ri-file-fill"></i>
-                <span class="title">File</span>
-            </div>
-            <div class="file">
-                <i class="icon ri-file-fill"></i>
-                <span class="title">File</span>
-            </div>
-            <div class="file">
-                <i class="icon ri-file-fill"></i>
-                <span class="title">File</span>
-            </div>
-            <div class="file">
-                <i class="icon ri-file-fill"></i>
-                <span class="title">File</span>
-            </div>
-            <div class="file">
-                <i class="icon ri-file-fill"></i>
-                <span class="title">File</span>
-            </div>
-            <div class="file">
-                <i class="icon ri-file-fill"></i>
-                <span class="title">File</span>
-            </div>
-            <div class="file">
-                <i class="icon ri-file-fill"></i>
-                <span class="title">File</span>
-            </div>
-            <div class="file">
-                <i class="icon ri-file-fill"></i>
-                <span class="title">File</span>
+        </div>
+        <div id="explorer">
+            <div id="files">
             </div>
         </div>
     </div>
