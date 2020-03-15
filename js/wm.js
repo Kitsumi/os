@@ -333,3 +333,18 @@ document.body.addEventListener("mouseup", (e) => {
 document.body.addEventListener("contextmenu", (e) => {
     e.preventDefault();
 });
+
+document.body.addEventListener("mouseup", (e) => {
+    let menu = document.getElementById("context");
+
+    if (menu) {
+        let element = e.target;
+        while (element.id != "context" && element != document.body) {
+            element = element.parentNode;
+        }
+
+        if (element.id == "context") return;
+
+        document.body.removeChild(menu);
+    }
+});

@@ -28,7 +28,7 @@ fs.listDirectory = function(dir, callback) {
         var readEntries = function() {
             dirReader.readEntries(function(results) {
                 if (!results.length) {
-                    callback(null, entries.sort());
+                    callback(null, entries.sort(), fileEntry);
                 } else {
                     entries = entries.concat(Array.prototype.slice.call(results || [], 0));
                     readEntries();
@@ -43,6 +43,18 @@ fs.listDirectory = function(dir, callback) {
         callback(err);
     });
 }
+
+fs.removeFile = function(dir, filename, callback) {
+    dir.getFile(filename, {create: false}, function(fileEntry) {
+        fileEntry.remove(function() {
+            callback();
+        }, (err) => {
+            callback(err);
+        });
+    }, (err) => {
+        callback(err);
+    });
+};
 
 function createDir(rootDirEntry, folders) {
     if (folders[0] == '.' || folders[0] == '') {

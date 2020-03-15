@@ -1,7 +1,8 @@
 (function() {
 const FileManagerApp = {
     "directory": "/",
-    "mainWindow": document.scripts[0].parentNode,
+    "fsDir": fs.filesystem.root,
+    "mainWindow": document.currentScript.parentNode,
     "history": [],
     "forward": []
 };
@@ -36,6 +37,131 @@ function dirClickHandler(e) {
         }, 500);
     }
 }
+
+function fileClickHandler(e) {
+    let element = e.target;
+    while (!element.classList.contains("file")) {
+        element = element.parentNode;
+    }
+    
+    let removeList = FileManagerApp.mainWindow.querySelectorAll(".file.selected");
+
+    for (var i = 0; i < removeList.length; i++) {
+        removeList[i].classList.remove("selected");
+    }
+
+    element.classList.add("selected");
+    if (element.dataset.clicked == "true") {
+        FileManagerApp.fsDir.getFile(element.dataset.filename, {}, function(fileEntry) {
+            window.open(fileEntry.toURL(), '_blank');
+        }, handleError);
+    } else {
+        element.dataset.clicked = true;
+        setTimeout(function() {
+            element.dataset.clicked = false;
+        }, 500);
+    }
+}
+
+function handleError() {
+    console.log.call([...arguments].unshift("ERROR"));
+}
+
+function createFileContextElement(e) {
+    let element = e.target;
+    while (!element.classList.contains("file")) {
+        element = element.parentNode;
+    }
+
+    let contextMenu = document.createElement("div");
+    contextMenu.id = "context";
+    contextMenu.style.top = e.clientY + "px";
+    contextMenu.style.left = e.clientX + "px";
+
+    let removeItem = document.createElement("span");
+    removeItem.classList.add("item");
+    removeItem.innerText = "Delete";
+    removeItem.addEventListener("click", function() {
+        let menu = document.getElementById("context");
+        if (menu) {
+            menu.parentNode.removeChild(menu);
+        }
+        fs.removeFile(FileManagerApp.fsDir, element.dataset.filename, (err) => {
+            if (err) {
+                handleError(err);
+            }
+
+            FileManagerApp.listDirectory();
+        });
+    });
+
+    contextMenu.appendChild(removeItem);
+    document.body.appendChild(contextMenu);
+};
+
+function handleUpload(e) {
+    let fileList = e.target.files;
+    if (fileList.length > 0) {
+        let file = fileList[0];
+
+        FileManagerApp.fsDir.getFile(file.name, {create: true, exclusive: true}, function(fileEntry) {
+            fileEntry.createWriter(function(fileWriter) {
+                fileWriter.addEventListener("writeend", (e) => {
+                    FileManagerApp.listDirectory();
+                });
+                fileWriter.addEventListener("error", handleError);
+
+                let reader = new FileReader();
+                reader.addEventListener("loadend", (e) => {
+                    fileWriter.write(new Blob(e.result));
+                });
+                reader.addEventListener("error", handleError);
+                reader.readAsArrayBuffer(file);
+            }, handleError);
+        }, handleError);
+    } else {
+        e.target.parentNode.removeChild(e.target);
+    }
+}
+
+function uploader() {
+    let fileSelector = document.createElement("input");
+    fileSelector.type = "file";
+    fileSelector.style.position = "absolute";
+    fileSelector.style.top = "-10000px";
+    fileSelector.style.left = "-10000px";
+    document.body.appendChild(fileSelector);
+
+    fileSelector.addEventListener("change", handleUpload);
+    fileSelector.addEventListener("onblur", handleUpload);
+    fileSelector.addEventListener("click", handleUpload);
+
+    fileSelector.click();
+}
+
+function createContextElement(e) {
+    let element = e.target;
+    if (element.id != "files") return;
+
+    let contextMenu = document.createElement("div");
+    contextMenu.id = "context";
+    contextMenu.style.top = e.clientY + "px";
+    contextMenu.style.left = e.clientX + "px";
+
+    let uploadItem = document.createElement("span");
+    uploadItem.classList.add("item");
+    uploadItem.innerText = "Upload";
+    uploadItem.addEventListener("click", function() {
+        let menu = document.getElementById("context");
+        if (menu) {
+            menu.parentNode.removeChild(menu);
+        }
+        uploader();
+    });
+
+    contextMenu.appendChild(uploadItem);
+    document.body.appendChild(contextMenu);
+};
 
 function breadcrumbClick(e) {
     if (e.target.dataset.path != FileManagerApp.directory) {
@@ -88,9 +214,9 @@ FileManagerApp.updateMenuBar = function () {
 };
 
 FileManagerApp.listDirectory = function() {
-    fs.listDirectory(FileManagerApp.directory, (err, data) => {
+    fs.listDirectory(FileManagerApp.directory, (err, data, directory) => {
         if (err) {
-            return console.log("Error", err);
+            return handleError("Error", err);
         }
 
         let fileListElement = FileManagerApp.mainWindow.querySelector("#files");
@@ -104,7 +230,13 @@ FileManagerApp.listDirectory = function() {
 
             fileElement.dataset.path = file.fullPath;
             fileElement.dataset.type = file.isDirectory ? "directory" : "file";
-            fileElement.addEventListener("click", dirClickHandler);
+            fileElement.dataset.filename = file.name;
+            if (file.isDirectory) {
+                fileElement.addEventListener("click", dirClickHandler);
+            } else {
+                fileElement.addEventListener("click", fileClickHandler);
+            }
+            fileElement.addEventListener("contextmenu", createFileContextElement);
 
             let icon = document.createElement("i");
             icon.classList.add("icon");
@@ -119,6 +251,8 @@ FileManagerApp.listDirectory = function() {
 
             fileListElement.appendChild(fileElement);
         }
+
+        FileManagerApp.fsDir = directory;
     });
 };
 
@@ -168,6 +302,8 @@ FileManagerApp.mainWindow.querySelector("#up").addEventListener("click", (e) => 
         FileManagerApp.listDirectory();
     }
 });
+
+FileManagerApp.mainWindow.querySelector("#files").addEventListener("contextmenu", createContextElement);
 
 FileManagerApp.listDirectory();
 FileManagerApp.updateMenuBar();

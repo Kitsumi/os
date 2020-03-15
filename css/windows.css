@@ -141,6 +141,37 @@
     cursor: se-resize;
 }
 
+#context {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background: #242424;
+    color: #EEEEEE;
+    min-width: 192px;
+    font-family: "Roboto";
+    font-size: 10pt;
+    font-weight: 300;
+    padding: 4px 2px;
+    box-shadow: rgba(36, 36, 36, 1) 0px 0px 4px;
+
+    animation: fade-in 0.1s ease-out forwards;
+}
+
+#context > .item {
+    padding: 8px;
+    user-select: none;
+}
+
+#context > .item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#context > .divider {
+    margin: 4px 8px;
+    background: #777777;
+    height: 1px;
+}
+
 #move-cover {
     position: absolute;
     top: 0;
@@ -148,4 +179,13 @@
     width: 100%;
     height: 100%;
     z-index: -1000;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
