@@ -106,14 +106,16 @@ function handleUpload(e) {
 
         FileManagerApp.fsDir.getFile(file.name, {create: true, exclusive: true}, function(fileEntry) {
             fileEntry.createWriter(function(fileWriter) {
-                fileWriter.addEventListener("writeend", (e) => {
-                    FileManagerApp.listDirectory();
-                });
-                fileWriter.addEventListener("error", handleError);
-
                 let reader = new FileReader();
                 reader.addEventListener("loadend", (e) => {
-                    fileWriter.write(new Blob(e.result));
+                    console.log(e);
+                    fileWriter.addEventListener("writeend", (e) => {
+                        console.log(e);
+                        FileManagerApp.listDirectory();
+                    });
+                    let blob = new Blob([e.target.result]);
+                    fileWriter.addEventListener("error", handleError);
+                    fileWriter.write(blob);
                 });
                 reader.addEventListener("error", handleError);
                 reader.readAsArrayBuffer(file);
