@@ -6,6 +6,12 @@ let storageSpace = 2 * 1024 * 1024 * 1024;
 navigator.webkitPersistentStorage.requestQuota(storageSpace, (grantedBytes) => {  
         window.requestFileSystem(PERSISTENT, grantedBytes, (e) => {
             fs.filesystem = e;
+            createDir(fs.filesystem.root, "/Users/Default/Documents".split("/"));
+            createDir(fs.filesystem.root, "/Users/Default/Music".split("/"));
+            createDir(fs.filesystem.root, "/Users/Default/Videos".split("/"));
+            createDir(fs.filesystem.root, "/Users/Default/Pictures".split("/"));
+            createDir(fs.filesystem.root, "/Users/Default/Desktop".split("/"));
+            createDir(fs.filesystem.root, "/Users/Default/Downloads".split("/"));
         }, (err) => {
             console.log("Filesystem Error:", err);
         });
@@ -37,3 +43,14 @@ fs.listDirectory = function(dir, callback) {
         callback(err);
     });
 }
+
+function createDir(rootDirEntry, folders) {
+    if (folders[0] == '.' || folders[0] == '') {
+      folders = folders.slice(1);
+    }
+    rootDirEntry.getDirectory(folders[0], {create: true}, function(dirEntry) {
+      if (folders.length) {
+        createDir(dirEntry, folders.slice(1));
+      }
+    }, console.log);
+};
