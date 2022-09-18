@@ -1,7 +1,7 @@
 const appManager = {};
 
 appManager.load = function(appName) {
-    let request = new Request('/apps/' + appName + '/app.json');
+    let request = new Request(document.location.pathname + '/apps/' + appName + '/app.json');
 
     fetch(request)
     .then(response => {
@@ -12,7 +12,7 @@ appManager.load = function(appName) {
         }
     })
     .then(data => {
-        request = new Request('/apps/' + appName + '/' + data.main);
+        request = new Request(document.location.pathname + '/apps/' + appName + '/' + data.main);
 
         fetch(request).then(response => {
             if (response.status === 200) {
@@ -42,7 +42,7 @@ appManager.load = function(appName) {
                 for (var i = 0; i < data.scripts.length; i++) {
                     let script = document.createElement("script");
                     script.type = "text/javascript";
-                    script.src = '/apps/' + appName + "/" + data.scripts[i];
+                    script.src = document.location.pathname + '/apps/' + appName + "/" + data.scripts[i];
 
                     mainWindow.appendChild(script);
                 }
